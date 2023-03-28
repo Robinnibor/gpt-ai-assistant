@@ -27,7 +27,7 @@ app.get('/info', async (req, res) => {
   res.status(200).send({ currentVersion, latestVersion });
 });
 
-const retryHandleEvents = async (events, retries = 6) => {
+const retryHandleEvents = async (events, retries = 5) => {
   for (let i = 0; i < retries; i++) {
     try {
       await handleEvents(events);
@@ -45,6 +45,7 @@ const retryHandleEvents = async (events, retries = 6) => {
 
 app.post(config.APP_WEBHOOK_PATH, validateLineSignature, async (req, res) => {
   try {
+    console.log(req)
     await storage.initialize();
     await retryHandleEvents(req.body.events);
     res.sendStatus(200);
