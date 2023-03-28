@@ -34,7 +34,7 @@ const retryHandleEvents = async (events, retries = 5) => {
       return;
     } catch (err) {
       if (err.response?.status === 504) {
-        console.error(`Attempt ${i + 1} failed with a 504 error. Retrying...`);
+        console.log(`Attempt ${i + 1} failed with a 504 error. Retrying...`);
       } else {
         throw err;
       }
@@ -45,7 +45,7 @@ const retryHandleEvents = async (events, retries = 5) => {
 
 app.post(config.APP_WEBHOOK_PATH, validateLineSignature, async (req, res) => {
   try {
-    console.log(req)
+    //console.log(req)
     await storage.initialize();
     await retryHandleEvents(req.body.events);
     res.sendStatus(200);
