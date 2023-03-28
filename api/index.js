@@ -27,7 +27,7 @@ app.get('/info', async (req, res) => {
   res.status(200).send({ currentVersion, latestVersion });
 });
 
-const retryHandleEvents = async (events, retries = 5) => {
+const retryHandleEvents = async (events, retries = 6) => {
   for (let i = 0; i < retries; i++) {
     try {
       await handleEvents(events);
